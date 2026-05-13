@@ -1,5 +1,7 @@
 # e2e Natural Language Autoencoders
 
+<img width="1237" height="649" alt="Screenshot 2026-05-13 at 5 58 04 AM" src="https://github.com/user-attachments/assets/02be7f67-019c-4b27-82c8-088c014d1c6f" />
+
 This repository is a replication and extension of Anthropic's Natural Language
 Autoencoders (NLA). An NLA consists of two adapters trained on top of a frozen
 subject LM (here, Qwen2.5 base): an **AV** (verbalizer) that takes a hidden-state
