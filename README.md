@@ -2,6 +2,7 @@
 
 <img width="1237" height="649" alt="Screenshot 2026-05-13 at 5 58 04 AM" src="https://github.com/user-attachments/assets/02be7f67-019c-4b27-82c8-088c014d1c6f" />
 
+## What are NLAs
 This repository is a replication and extension of Anthropic's Natural Language
 Autoencoders (NLA). An NLA consists of two adapters trained on top of a frozen
 subject LM (here, Qwen2.5 base): an **AV** (verbalizer) that takes a hidden-state
@@ -11,6 +12,7 @@ reads the explanation and reconstructs the activation. Together (AV then AR) the
 form an autoencoder whose latent code is a human-readable English sentence, which
 is what makes NLAs interesting as an interpretability tool.
 
+## Maximizing Downstream Fidelity 
 The extension implemented here is an **end-to-end downstream-KL training
 objective** (the `_e2e` variants). In addition to the geometric MSE that
 matches the AR's reconstruction to the original activation, we patch the
@@ -26,6 +28,7 @@ AR's reconstruction loss; a softmax gradient-distillation teacher
 (`q_t = softmax(-<g_t, e_v>/tau)`) is included in the repo as an earlier
 exploration (`nla/grad_distill.py`) but is not the headline AV objective.
 
+## Models and Evals
 The repo includes both **0.5B** (single-GPU) and **7B** (FSDP, multi-GPU)
 training pipelines, downstream-KL evals, and the behavioral evals from the NLA
 paper — SelfDescribe (gender), factuality grading by an LLM subagent, CoT-Hints,
