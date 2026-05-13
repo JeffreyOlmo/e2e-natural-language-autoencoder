@@ -1,0 +1,8 @@
+torch>=2.7
+transformers>=4.54
+datasets>=2.21
+accelerate>=0.34
+numpy
+tqdm
+pyyaml
+pyarrow

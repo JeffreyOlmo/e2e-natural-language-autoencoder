@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Local data, checkpoints, logs — large or regenerable
+checkpoints/
+data/
+logs/
+runs/
+wandb/
+/tmp/
+
+# Model / tensor / activation artifacts
+*.pt
+*.safetensors
+*.bin
+*.npz
+*.parquet
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+
+# Local notes / overrides
+.notes/
+*.local.*
