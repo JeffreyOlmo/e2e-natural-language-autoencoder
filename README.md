@@ -17,9 +17,12 @@ and add a KL term between the subject LM's next-token distribution on the
 original vs. reconstructed activation. This pushes the autoencoder to preserve
 not just the geometry of the activation but its *causal effect on downstream
 predictions*, in the spirit of Karvonen et al. (arXiv:2503.17272) and
-Braun et al.'s end-to-end SAE work. The replication uses a softmax
-gradient-distillation teacher (`q_t = softmax(-<g_t, e_v>/tau)`) on the AV
-side rather than the GRPO objective in the original NLA paper.
+Braun et al.'s end-to-end SAE work. The replication uses GRPO
+(group-relative policy optimization) on the AV side — the same objective as
+the original NLA paper. The e2e extension adds the downstream-KL term to the
+AR's reconstruction loss; a softmax gradient-distillation teacher
+(`q_t = softmax(-<g_t, e_v>/tau)`) is included in the repo as an earlier
+exploration (`nla/grad_distill.py`) but is not the headline AV objective.
 
 The repo includes both **0.5B** (single-GPU) and **7B** (FSDP, multi-GPU)
 training pipelines, downstream-KL evals, and the behavioral evals from the NLA
@@ -31,8 +34,10 @@ matched control trained on geometric MSE alone.
 
 - `nla/` — core modules: `model.py` (AV/AR adapters), `injection.py`
   (patching reconstructed activations back into the subject LM),
-  `grad_distill.py` (softmax gradient-distillation teacher), `loss.py`,
-  `rollout.py`, `data.py`, `prompts.py`, `config.py`, `relax.py`.
+  `loss.py` (GRPO + downstream-KL), `rollout.py`, `data.py`, `prompts.py`,
+  `config.py`, `relax.py`, plus `grad_distill.py` (softmax
+  gradient-distillation teacher, retained as a historical artifact — not
+  used by the headline GRPO pipeline).
 - `scripts/` — training, eval, and plotting scripts.
   - Training: `train_small_rl_e2e.py` (0.5B + e2e KL), `train_fsdp_grpo_e2e.py`
     (7B FSDP + e2e KL), plus matched non-e2e baselines (`train_small_rl.py`,
